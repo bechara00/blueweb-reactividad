@@ -1,30 +1,50 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, computed } from 'vue'
+
+const counter = ref(0)
+
+const increment = () => {
+  counter.value++
+}
+const decrement = () => {
+  counter.value--
+}
+
+const reset = () => counter.value = 0
+
+const classCounter = computed(() => {
+  if (counter.value === 0) {
+    return 'zero'
+  }
+  if (counter.value > 0) {
+    return 'positive'
+  }
+  if (counter.value < 0) {
+    return 'negative'
+  }
+})
+
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <h1>REACTIVIDAD</h1>
+  <h2 :class="classCounter">{{ counter }}</h2>
+  <button @click="increment">Aumentar Contador</button>
+  <button @click="decrement">Disminuir Contador</button>
+  <button @click="reset">Restear Contador</button>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.positive {
+  color: green
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.negative {
+  color: red
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.zero {
+  color: peru
 }
 </style>
