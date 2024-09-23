@@ -3,6 +3,9 @@ import { ref, computed } from 'vue'
 
 const counter = ref(0)
 
+const myArray = ref([])
+
+
 const increment = () => {
   counter.value++
 }
@@ -24,6 +27,21 @@ const classCounter = computed(() => {
   }
 })
 
+const addArray = () => {
+  myArray.value.push(counter.value)
+  return myArray
+}
+
+const valueDisabled = computed(() => {
+  if (myArray.value.includes(counter.value)) {
+    return true
+  }
+  else {
+    return false
+  }
+
+})
+
 
 </script>
 
@@ -33,6 +51,14 @@ const classCounter = computed(() => {
   <button @click="increment">Aumentar Contador</button>
   <button @click="decrement">Disminuir Contador</button>
   <button @click="reset">Restear Contador</button>
+  <button :disabled="valueDisabled" @click="addArray">Add</button>
+  <h1>Lista de favoritos</h1>
+  <ul v-for="(item, index) in myArray" key="index">
+
+    <li >{{ item }}</li>
+
+  </ul>
+
 </template>
 
 <style scoped>
